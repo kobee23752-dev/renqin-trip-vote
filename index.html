@@ -18,42 +18,8 @@
   --t5:#7A5FA8; --t5-soft:#EDE7F7;
   --shadow:0 3px 0 rgba(30,58,95,.25);
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0F2136;
-    --paper:#1A3350;
-    --ink:#DCEDFD;
-    --line:#8FB4DC;
-    --muted:#A3C0DD;
-    --hl:#5D4E1A;
-    --kid:#FFC24D;
-    --par:#7FB0E0;
-    --t1:#6FC280; --t1-soft:#1D3A29;
-    --t2:#F0995F; --t2-soft:#442F1D;
-    --t3:#63B1DC; --t3-soft:#1B3B50;
-    --t4:#E58BB8; --t4-soft:#45243A;
-    --t5:#AC93D8; --t5-soft:#332A49;
-    --shadow:0 3px 0 rgba(0,0,0,.45);
-    --logo-filter:invert(.92);
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0F2136;
-  --paper:#1A3350;
-  --ink:#DCEDFD;
-  --line:#8FB4DC;
-  --muted:#A3C0DD;
-  --hl:#5D4E1A;
-  --kid:#FFC24D;
-  --par:#7FB0E0;
-  --t1:#6FC280; --t1-soft:#1D3A29;
-  --t2:#F0995F; --t2-soft:#442F1D;
-  --t3:#63B1DC; --t3-soft:#1B3B50;
-  --t4:#E58BB8; --t4-soft:#45243A;
-  --t5:#AC93D8; --t5-soft:#332A49;
-  --shadow:0 3px 0 rgba(0,0,0,.45);
-  --logo-filter:invert(.92);
-}
+/* 固定淺色版：不跟隨裝置深色模式 */
+:root{color-scheme:light}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{
