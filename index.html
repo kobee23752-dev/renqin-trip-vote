@@ -1,0 +1,914 @@
+<meta charset="utf-8">
+<title>仁親一日遊票選</title>
+<link data-keep rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style data-keep>
+:root{
+  --bg:#E0F2FE;
+  --paper:#FFFFFF;
+  --ink:#1E3A5F;
+  --line:#24466E;
+  --muted:#54718F;
+  --hl:#FFE9A8;
+  --kid:#F5A623;
+  --par:#4A7FB5;
+  --t1:#3E8C51; --t1-soft:#E4F3E7;
+  --t2:#DD7A38; --t2-soft:#FCEEDF;
+  --t3:#2E7BA8; --t3-soft:#E1F0F8;
+  --t4:#C2578A; --t4-soft:#F8E4EE;
+  --t5:#7A5FA8; --t5-soft:#EDE7F7;
+  --shadow:0 3px 0 rgba(30,58,95,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F2136;
+    --paper:#1A3350;
+    --ink:#DCEDFD;
+    --line:#8FB4DC;
+    --muted:#A3C0DD;
+    --hl:#5D4E1A;
+    --kid:#FFC24D;
+    --par:#7FB0E0;
+    --t1:#6FC280; --t1-soft:#1D3A29;
+    --t2:#F0995F; --t2-soft:#442F1D;
+    --t3:#63B1DC; --t3-soft:#1B3B50;
+    --t4:#E58BB8; --t4-soft:#45243A;
+    --t5:#AC93D8; --t5-soft:#332A49;
+    --shadow:0 3px 0 rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F2136;
+  --paper:#1A3350;
+  --ink:#DCEDFD;
+  --line:#8FB4DC;
+  --muted:#A3C0DD;
+  --hl:#5D4E1A;
+  --kid:#FFC24D;
+  --par:#7FB0E0;
+  --t1:#6FC280; --t1-soft:#1D3A29;
+  --t2:#F0995F; --t2-soft:#442F1D;
+  --t3:#63B1DC; --t3-soft:#1B3B50;
+  --t4:#E58BB8; --t4-soft:#45243A;
+  --t5:#AC93D8; --t5-soft:#332A49;
+  --shadow:0 3px 0 rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Noto Sans TC',-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif;
+  font-size:16px;
+  line-height:1.75;
+  margin:0;
+  padding:0 16px 40px;
+}
+.wrap{max-width:920px;margin:0 auto}
+h1,h2,h3,.wenkai{font-family:'LXGW WenKai TC','Noto Sans TC','PingFang TC',serif}
+h2{text-wrap:balance}
+a{color:var(--ink)}
+
+/* 手繪感邊框（小朋友蠟筆風） */
+.sketch{
+  background:var(--paper);
+  border:2.5px solid var(--line);
+  border-radius:255px 18px 225px 18px / 18px 225px 18px 255px;
+  box-shadow:var(--shadow);
+}
+
+/* ---------- 頁首 ---------- */
+header{padding:34px 0 8px;text-align:center}
+.logo-paper{
+  display:inline-block;background:#FFFFFF;border:2px solid var(--line);
+  border-radius:8px 3px 10px 4px/4px 10px 3px 8px;
+  padding:10px 14px;box-shadow:var(--shadow);
+  transform:rotate(-2deg);position:relative;margin-bottom:10px;
+}
+.logo-paper::before,.logo-paper::after{
+  content:"";position:absolute;top:-10px;width:56px;height:20px;
+  background:var(--hl);opacity:.85;border:1.5px solid var(--line);transform:rotate(-4deg);
+}
+.logo-paper::before{left:-18px}
+.logo-paper::after{right:-18px;transform:rotate(5deg)}
+.logo-paper img{width:190px;max-width:60vw;height:auto;display:block}
+.org{
+  display:inline-block;font-family:'LXGW WenKai TC',serif;font-weight:700;
+  font-size:1.05rem;letter-spacing:.35em;padding-left:.35em;
+  border:2px solid var(--line);border-radius:120px 14px 120px 14px/14px 120px 14px 120px;
+  padding:2px 14px 2px 18px;transform:rotate(-1.5deg);background:var(--paper);
+}
+h1{
+  font-size:clamp(2.1rem,7vw,3.4rem);
+  font-weight:700;letter-spacing:.06em;
+  margin:14px 0 4px;line-height:1.25;
+  color:var(--ink);
+  text-shadow:3px 3px 0 var(--bg),4px 4px 0 var(--line);
+}
+.date-badge{
+  display:inline-block;font-weight:700;font-size:1.05rem;
+  background:var(--hl);border:2px solid var(--line);
+  border-radius:16px 120px 16px 120px/120px 16px 120px 16px;
+  padding:4px 18px;transform:rotate(1.2deg);margin-top:6px;
+}
+.tagline{color:var(--muted);margin:14px 0 0;font-size:1.02rem}
+
+/* 導覽膠囊 */
+nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 8px}
+nav a{
+  text-decoration:none;font-weight:700;font-family:'LXGW WenKai TC',serif;
+  background:var(--paper);border:2px solid var(--line);
+  border-radius:120px 14px 120px 14px/14px 120px 14px 120px;
+  padding:5px 15px;box-shadow:var(--shadow);
+}
+nav a:nth-child(even){transform:rotate(1.4deg)}
+nav a:nth-child(odd){transform:rotate(-1.2deg)}
+
+/* ---------- 行程區塊 ---------- */
+section.trip{margin:44px 0;padding:24px 20px 22px}
+.badge-num{
+  display:inline-block;font-family:'LXGW WenKai TC',serif;font-weight:700;
+  color:var(--paper);background:var(--tc);border:2px solid var(--line);
+  border-radius:14px 90px 14px 90px/90px 14px 90px 14px;
+  padding:2px 14px;transform:rotate(-2deg);font-size:.95rem;
+}
+section.trip h2{font-size:clamp(1.5rem,5vw,2.1rem);margin:10px 0 6px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
+.chip{
+  font-size:.88rem;font-weight:500;background:var(--tsoft);
+  border:1.5px solid var(--line);border-radius:999px;padding:1px 12px;
+}
+.intro{margin:8px 0 6px}
+.intro mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:4px}
+
+/* 拍立得照片列 */
+.strip{display:flex;gap:16px;overflow-x:auto;padding:14px 6px 20px;scroll-snap-type:x proximity}
+.polaroid{
+  flex:0 0 auto;background:var(--paper);border:2px solid var(--line);
+  border-radius:10px 4px 12px 5px/5px 12px 4px 10px;
+  padding:7px 7px 6px;box-shadow:var(--shadow);scroll-snap-align:start;
+}
+.strip .polaroid:nth-child(odd){transform:rotate(-1.6deg)}
+.strip .polaroid:nth-child(even){transform:rotate(1.4deg)}
+.polaroid img{height:168px;width:auto;max-width:none;display:block;border-radius:6px}
+.polaroid figcaption{
+  font-family:'LXGW WenKai TC',serif;font-size:.86rem;text-align:center;
+  padding-top:4px;color:var(--muted);
+}
+figure{margin:0}
+
+/* 全寬圖解海報 */
+.poster{margin:6px 0 14px;background:var(--paper);border:2px solid var(--line);
+  border-radius:12px 5px 14px 6px/6px 14px 5px 12px;padding:8px;box-shadow:var(--shadow)}
+.poster img{width:100%;height:auto;display:block;border-radius:8px}
+.poster figcaption{font-family:'LXGW WenKai TC',serif;font-size:.9rem;text-align:center;padding-top:5px;color:var(--muted)}
+
+/* 內容欄位 */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+@media (max-width:640px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--tsoft);border:2px solid var(--line);border-radius:18px 6px 18px 6px/6px 18px 6px 18px;padding:12px 16px}
+.panel h3{margin:4px 0 6px;font-size:1.08rem}
+.panel ol,.panel ul{margin:4px 0 8px;padding-left:1.3em}
+.panel li{margin:2px 0}
+.panel li b{color:var(--tc)}
+.note{font-size:.9rem;color:var(--muted);margin:6px 0 2px}
+
+/* 時間軸 */
+.tl{list-style:none;margin:6px 0;padding:0}
+.tl li{display:flex;gap:12px;align-items:baseline;margin:7px 0}
+.tl .time{
+  font-weight:700;color:var(--tc);min-width:96px;text-align:right;
+  font-variant-numeric:tabular-nums;font-family:'LXGW WenKai TC',serif;flex:0 0 auto;
+}
+.tl .what b{display:block}
+.tl .what span{font-size:.92rem;color:var(--muted)}
+
+/* 官網連結 */
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.links a{
+  text-decoration:none;font-weight:700;font-size:.95rem;
+  background:var(--paper);border:2px solid var(--line);
+  border-radius:120px 14px 120px 14px/14px 120px 14px 120px;
+  padding:4px 16px;box-shadow:var(--shadow);
+}
+.links a:hover{background:var(--tsoft)}
+
+/* ---------- 比較表 ---------- */
+#compare{margin:44px 0;padding:24px 20px}
+#compare h2{font-size:clamp(1.5rem,5vw,2rem);margin:0 0 12px}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:960px}
+th,td{border:2px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+thead th{font-family:'LXGW WenKai TC',serif;font-size:1.02rem;text-align:center}
+tbody th{white-space:nowrap;background:var(--bg);font-weight:700}
+td.c1{background:var(--t1-soft)}td.c2{background:var(--t2-soft)}td.c3{background:var(--t3-soft)}td.c4{background:var(--t4-soft)}td.c5{background:var(--t5-soft)}
+
+/* ---------- 投票 ---------- */
+#vote{margin:44px 0;padding:26px 20px 24px;text-align:center}
+#vote h2{font-size:clamp(1.6rem,6vw,2.3rem);margin:0}
+#vote .sub{color:var(--muted);margin:6px 0 18px}
+.role-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.role-btn{
+  font-family:'LXGW WenKai TC',serif;font-weight:700;font-size:1.3rem;
+  color:var(--ink);background:var(--paper);border:2.5px solid var(--line);
+  border-radius:255px 20px 225px 20px/20px 225px 20px 255px;
+  padding:16px 30px;cursor:pointer;box-shadow:var(--shadow);
+}
+.role-btn .big{display:block;font-size:2.4rem;line-height:1.2}
+.role-btn:hover{background:var(--hl)}
+.role-btn[aria-pressed="true"]{background:var(--hl);transform:scale(1.04)}
+.step-label{
+  display:inline-block;font-family:'LXGW WenKai TC',serif;font-weight:700;
+  background:var(--hl);border:2px solid var(--line);
+  border-radius:14px 90px 14px 90px/90px 14px 90px 14px;
+  padding:2px 16px;margin:4px 0 14px;transform:rotate(-1deg);
+}
+.vote-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:6px}
+@media (max-width:680px){.vote-cards{grid-template-columns:1fr 1fr}}
+@media (max-width:430px){.vote-cards{grid-template-columns:1fr}}
+.vote-card{
+  font-family:inherit;color:var(--ink);background:var(--paper);
+  border:2.5px solid var(--line);
+  border-radius:18px 6px 18px 6px/6px 18px 6px 18px;
+  padding:10px 10px 12px;cursor:pointer;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:6px;
+}
+.vote-card:hover{transform:scale(1.02);background:var(--tsoft)}
+.vote-card img{width:100%;height:130px;object-fit:cover;border-radius:8px;display:block}
+.vc-name{font-family:'LXGW WenKai TC',serif;font-weight:700;font-size:1.12rem}
+.vc-sub{font-size:.86rem;color:var(--muted)}
+#vote-status{margin:10px 0 0;font-size:.92rem;color:var(--muted);min-height:1.4em}
+
+/* 結果 */
+#results{margin-top:26px;text-align:left}
+#results h3{text-align:center;font-size:1.3rem;margin:0 0 12px}
+.res-row{margin:12px 0}
+.res-name{font-family:'LXGW WenKai TC',serif;font-weight:700}
+.res-count{float:right;font-variant-numeric:tabular-nums;font-size:.92rem;color:var(--muted)}
+.bar{
+  height:26px;background:var(--bg);border:2px solid var(--line);
+  border-radius:999px;overflow:hidden;display:flex;margin-top:3px;
+}
+.seg{height:100%;transition:width .5s ease}
+.seg.k{background:var(--kid)}
+.seg.p{background:var(--par)}
+.legend{text-align:center;font-size:.88rem;color:var(--muted);margin-top:14px}
+.legend .dot{display:inline-block;width:.85em;height:.85em;border-radius:50%;border:1.5px solid var(--line);vertical-align:-.08em}
+.legend .dot.k{background:var(--kid)}
+.legend .dot.p{background:var(--par)}
+.empty-res{text-align:center;color:var(--muted)}
+
+/* 投完覆蓋層 & 提示 */
+.overlay{
+  position:fixed;inset:0;background:rgba(15,33,54,.55);
+  display:flex;align-items:center;justify-content:center;z-index:50;padding:20px;
+}
+.overlay .card{
+  background:var(--paper);border:2.5px solid var(--line);
+  border-radius:255px 20px 225px 20px/20px 225px 20px 255px;
+  padding:34px 40px;text-align:center;max-width:340px;
+}
+.overlay .party{font-size:3.2rem;line-height:1.1}
+@media (prefers-reduced-motion:no-preference){
+  .overlay .party{animation:pop .5s ease}
+  @keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+}
+.overlay .card p{margin:10px 0}
+.overlay button{
+  font-family:'LXGW WenKai TC',serif;font-weight:700;font-size:1.1rem;color:var(--ink);
+  background:var(--hl);border:2.5px solid var(--line);
+  border-radius:120px 14px 120px 14px/14px 120px 14px 120px;
+  padding:8px 22px;cursor:pointer;box-shadow:var(--shadow);
+}
+#toast{
+  position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;transform:translateX(-50%);
+  background:var(--hl);border:2px solid var(--line);color:var(--ink);
+  border-radius:999px;padding:6px 22px;font-weight:700;z-index:60;box-shadow:var(--shadow);
+}
+
+/* ---------- 頁尾 ---------- */
+footer{margin:52px auto 0;text-align:center;max-width:760px}
+.verse{font-family:'LXGW WenKai TC',serif;font-size:1.08rem}
+.verse small{display:block;color:var(--muted)}
+.credits{font-size:.8rem;color:var(--muted);margin-top:18px;line-height:1.9}
+.credits a{color:var(--muted)}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="logo-paper"><img src="img/logo.png" alt="仁親陪讀班的手繪 Rent Ching logo：方塊字和微笑的小人"></div>
+  <br>
+  <span class="org">仁親陪讀班</span>
+  <h1>親子一日遊大票選</h1>
+  <span class="date-badge">2026.11.7（六）・新北投出發 🚌</span>
+  <p class="tagline">五條路線都超好玩，要去哪裡玩？<b>小孩、家長，一人一票自己決定！</b></p>
+  <nav>
+    <a href="#trip1">🌳 幸福20號農場</a>
+    <a href="#trip2">🌊 新豐海線慢遊</a>
+    <a href="#trip3">🪂 露境東岳滑索</a>
+    <a href="#trip4">🐷 廣興農場摸蜆趣</a>
+    <a href="#trip5">🛝 宜蘭放電小旅行</a>
+    <a href="#compare">📋 比一比</a>
+    <a href="#vote">🗳️ 我要投票</a>
+  </nav>
+</header>
+
+<!-- ============ 路線一 ============ -->
+<section class="trip sketch" id="trip1" style="--tc:var(--t1);--tsoft:var(--t1-soft)">
+  <span class="badge-num">1 號路線</span>
+  <h2>🌳 幸福20號農場｜樹上闖關去！</h2>
+  <div class="meta">
+    <span class="chip">📍 宜蘭冬山</span>
+    <span class="chip">🚗 車程約 1.5 小時</span>
+    <span class="chip">🎢 刺激度 ⚡⚡</span>
+    <span class="chip">🧒 滿 4 歲可玩</span>
+  </div>
+  <p class="intro">藏在宜蘭冬山山腳下的親子農場，招牌是<mark>空中樹梢冒險</mark>——穿上安全吊帶、戴好頭盔，像小泰山一樣在樹冠之間闖關！闖關完還能自己動手做窯烤披薩、餵小豬和兔子。</p>
+
+  <div class="strip">
+    <figure class="polaroid"><img src="img/hf-bridge.jpg" alt="小朋友走在樹梢間的高空獨木橋"><figcaption>高空獨木橋，走囉！</figcaption></figure>
+    <figure class="polaroid"><img src="img/hf-rope.jpg" alt="教練陪同挑戰空中平衡走繩"><figcaption>平衡走繩，教練陪著</figcaption></figure>
+    <figure class="polaroid"><img src="img/hf-zipline.jpg" alt="坐式滑索在樹林間滑行"><figcaption>咻——坐式滑索</figcaption></figure>
+    <figure class="polaroid"><img src="img/hf-slide.jpg" alt="彩色管狀的尖叫高速溜滑梯"><figcaption>尖叫溜滑梯！</figcaption></figure>
+    <figure class="polaroid"><img src="img/hf-playground.jpg" alt="園區免費低空平衡遊戲區"><figcaption>低空遊戲區免費玩</figcaption></figure>
+  </div>
+
+  <figure class="poster">
+    <img src="img/hf-7guan.jpg" alt="空中7關圖解：1獨木橋、2平衡走繩、3U型鞦韆、4猩猩走路、5坐式滑索、6蜘蛛人網梯、7尖叫溜滑梯，未滿12歲需家長陪同、限重90公斤">
+    <figcaption>空中 7 關全圖解——你要挑哪 4 關來闖？</figcaption>
+  </figure>
+
+  <div class="cols">
+    <div class="panel">
+      <h3>🧗 空中樹梢體驗・7 選 4 闖關</h3>
+      <p style="margin:2px 0 6px">不分大人小孩，每個人都從七大關卡中<b>自己挑 4 關</b>來挑戰：</p>
+      <ol>
+        <li><b>獨木橋</b>——訓練平衡與膽量（★★）</li>
+        <li><b>平衡走繩</b>——在細繩上穩定前行（★★★）</li>
+        <li><b>U型鞦韆</b>——空中動態平衡，大魔王關！（★★★★）</li>
+        <li><b>猩猩走路</b>——手腳並用往前爬（★★★★）</li>
+        <li><b>坐式滑索</b>——坐在安全座椅上騰空滑行（★★）</li>
+        <li><b>蜘蛛人網梯</b>——攀爬網狀梯面（★）</li>
+        <li><b>尖叫高速溜滑梯</b>——從高空咻一聲滑下來（★★）</li>
+      </ol>
+      <p class="note">未滿 12 歲需由家長陪同上樹；限重 90 公斤。想試大魔王 U 型鞦韆還是先從蜘蛛人網梯暖身，自己決定！</p>
+    </div>
+    <div class="panel">
+      <h3>✨ 還可以玩什麼</h3>
+      <ul>
+        <li>🍕 窯烤披薩 DIY——自己揉麵團、放料、進窯烤</li>
+        <li>🐷 動物餵食區——小豬、兔子、山羊</li>
+        <li>🤸 大型跳跳床、超大泡泡遊樂區</li>
+        <li>🚜 鐵牛車園區巡禮</li>
+      </ul>
+      <h3>📌 給爸媽的小提醒</h3>
+      <p class="note">空中冒險採預約制、全程有教練指導與安全裝備；園區有咖啡廳和大草皮，等待時不無聊。</p>
+    </div>
+  </div>
+
+  <div class="links">
+    <a href="https://www.facebook.com/20Happy/" target="_blank" rel="noopener">👍 官方 Facebook</a>
+    <a href="https://www.instagram.com/happiness20farm/" target="_blank" rel="noopener">📷 官方 Instagram</a>
+  </div>
+</section>
+
+<!-- ============ 路線二 ============ -->
+<section class="trip sketch" id="trip2" style="--tc:var(--t2);--tsoft:var(--t2-soft)">
+  <span class="badge-num">2 號路線</span>
+  <h2>🌊 新豐海線慢遊｜農場・紅樹林・沙灘夕陽</h2>
+  <div class="meta">
+    <span class="chip">📍 新竹新豐</span>
+    <span class="chip">🚗 車程約 75 分鐘（最近！）</span>
+    <span class="chip">🌿 悠閒度 🌿🌿🌿</span>
+    <span class="chip">👶 全年齡都適合</span>
+  </div>
+  <p class="intro">最悠閒、完全不趕的一條路線：上午在農場<mark>大草皮盡情放電</mark>、餵兔子餵小豬，下午到紅樹林木棧道找<mark>招潮蟹和彈塗魚</mark>，最後在沙灘挖沙，看太陽在大風車旁邊慢慢落進海裡。</p>
+
+  <div class="strip">
+    <figure class="polaroid"><img src="img/xf-farm-animal.jpg" alt="新豐休閒農場可愛動物區"><figcaption>餵小豬、餵兔子</figcaption></figure>
+    <figure class="polaroid"><img src="img/xf-farm-camp.jpg" alt="農場大草皮與蒙古包"><figcaption>大草皮盡情跑跳</figcaption></figure>
+    <figure class="polaroid"><img src="img/xf-farm-bbq.jpg" alt="農場園區用餐區"><figcaption>中午吃暖暖火鍋</figcaption></figure>
+    <figure class="polaroid"><img src="img/xf-mangrove-1.jpg" alt="新豐紅樹林步道全景"><figcaption>紅樹林「龍貓隧道」</figcaption></figure>
+    <figure class="polaroid"><img src="img/xf-mangrove-2.jpg" alt="穿越紅樹林的木棧道"><figcaption>木棧道生態散步</figcaption></figure>
+    <figure class="polaroid"><img src="img/xf-beach-crab.jpg" alt="沙灘上的小螃蟹"><figcaption>找找看小螃蟹在哪</figcaption></figure>
+    <figure class="polaroid"><img src="img/xf-beach-stairs.jpg" alt="鳳坑沙灣弧形親水階梯"><figcaption>全新親水階梯挖沙</figcaption></figure>
+    <figure class="polaroid"><img src="img/xf-beach-windmill.jpg" alt="海邊的大風車"><figcaption>海邊大風車轉呀轉</figcaption></figure>
+    <figure class="polaroid"><img src="img/xf-beach-sunset.jpg" alt="沙灘上的橘紅色夕陽"><figcaption>壓軸：海上夕陽 🌅</figcaption></figure>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h3>🗺️ 這一天會去哪</h3>
+      <ul>
+        <li>🐰 <b>新豐休閒農場</b>——大草皮、沙坑盡情放電，餵兔子、餵小豬，中午吃暖暖火鍋＋澳洲茶樹抗菌露DIY</li>
+        <li>🦀 <b>新豐紅樹林步道</b>——400公尺木棧道「龍貓隧道」，低頭找招潮蟹和彈塗魚</li>
+        <li>🏖️ <b>鳳坑沙灣・觀海大道沙灘</b>——全新親水階梯挖沙撿貝殼，看夕陽慢慢落在大風車旁</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>✨ 這條路線的好</h3>
+      <ul>
+        <li>🚗 車程最短，小小孩不會坐車坐到累</li>
+        <li>🆓 步道和沙灘都免門票，木棧道推車也能走</li>
+        <li>🦀 生態超豐富：北台灣唯一有觀賞木棧道的紅樹林保護區</li>
+        <li>🚿 沙灘旁有全新洗腳淋浴區，玩沙不怕髒</li>
+      </ul>
+      <h3>📌 給爸媽的小提醒</h3>
+      <p class="note">記得帶換洗衣物和挖沙工具；紅樹林建議白天退潮時段最好看。</p>
+    </div>
+  </div>
+
+  <div class="links">
+    <a href="https://www.facebook.com/XINFENGFARM/" target="_blank" rel="noopener">👍 新豐休閒農場 Facebook</a>
+    <a href="https://www.travelking.com.tw/tourguide/scenery102894.html" target="_blank" rel="noopener">🌿 紅樹林步道介紹</a>
+  </div>
+</section>
+
+<!-- ============ 路線三 ============ -->
+<section class="trip sketch" id="trip3" style="--tc:var(--t3);--tsoft:var(--t3-soft)">
+  <span class="badge-num">3 號路線</span>
+  <h2>🪂 露境東岳｜滑索＋烤肉大冒險</h2>
+  <div class="meta">
+    <span class="chip">📍 宜蘭南澳</span>
+    <span class="chip">🚗 車程約 2 小時</span>
+    <span class="chip">🎢 刺激度 ⚡⚡⚡</span>
+    <span class="chip">🧒 滑索滿 5 歲</span>
+  </div>
+  <p class="intro">開過雪隧和蘇花改，抵達群山環繞的東岳山谷營地。這裡有<mark>北台灣最長的泰山滑索</mark>——106 公尺長、四層樓高，最快時速將近 70 公里，咻一聲飛過整片山谷！玩完滑索就來<mark>戶外烤肉</mark>，還有終年清涼的湧泉戲水池。</p>
+
+  <div class="strip">
+    <figure class="polaroid"><img src="img/lj-zipline.jpg" alt="泰山滑索出發平台，教練協助穿裝備"><figcaption>滑索出發台，預備——</figcaption></figure>
+    <figure class="polaroid"><img src="img/lj-grass.jpg" alt="營地大草皮與群山"><figcaption>群山環繞的大草皮</figcaption></figure>
+    <figure class="polaroid"><img src="img/lj-bbq.jpg" alt="戶外烤肉"><figcaption>烤肉時間到！</figcaption></figure>
+    <figure class="polaroid"><img src="img/lj-atv.jpg" alt="沙灘車親子共乘體驗"><figcaption>沙灘車轟隆出發</figcaption></figure>
+    <figure class="polaroid"><img src="img/lj-tent.jpg" alt="草皮上的帳篷區"><figcaption>山腳下的營地</figcaption></figure>
+    <figure class="polaroid"><img src="img/lj-sup.jpg" alt="東澳灣立槳SUP"><figcaption>旁邊就是東澳灣</figcaption></figure>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h3>🪂 泰山滑索小檔案</h3>
+      <ul>
+        <li><b>106 公尺</b>——北台灣最長的高空叢林滑索</li>
+        <li><b>4 層樓高</b>——從樹冠高度飛越山谷</li>
+        <li><b>時速近 70 公里</b>——耳邊都是風聲！</li>
+        <li>👷 專業教練全程指導，含穿脫裝備約 30–40 分鐘</li>
+      </ul>
+      <p class="note">滑索須滿 5 歲，體重較輕的小朋友由大人陪同雙人滑行（限制以官方公告為準）；長頭髮要盤進安全帽、記得穿褲裝。</p>
+    </div>
+    <div class="panel">
+      <h3>✨ 還可以玩什麼</h3>
+      <ul>
+        <li>🍖 戶外烤肉——玩累了就開烤</li>
+        <li>💦 天然湧泉戲水池——恆溫約16度、水深60公分，小小孩也能玩</li>
+        <li>🏎️ 沙灘車共乘體驗（約3歲以上可共乘）</li>
+        <li>⚽ 大草皮、兒童電動車</li>
+      </ul>
+      <h3>📌 給爸媽的小提醒</h3>
+      <p class="note">所有活動採預約制、滑索需成團；車程較長，建議準備車上小點心和音樂。</p>
+    </div>
+  </div>
+
+  <div class="links">
+    <a href="https://www.camping085.com/" target="_blank" rel="noopener">🏕️ 官方網站</a>
+    <a href="https://www.facebook.com/camping085/" target="_blank" rel="noopener">👍 官方 Facebook</a>
+  </div>
+</section>
+
+<!-- ============ 路線四 ============ -->
+<section class="trip sketch" id="trip4" style="--tc:var(--t4);--tsoft:var(--t4-soft)">
+  <span class="badge-num">4 號路線</span>
+  <h2>🐷 廣興農場摸蜆趣｜小豬・梅花湖</h2>
+  <div class="meta">
+    <span class="chip">📍 宜蘭冬山</span>
+    <span class="chip">🚗 車程約 1.5 小時</span>
+    <span class="chip">🌿 悠閒度 🌿🌿🌿</span>
+    <span class="chip">👶 全年齡都適合</span>
+  </div>
+  <p class="intro">古早味十足的「鴨母寮豬哥窟」！捲起褲管在天然湧泉裡體驗<mark>摸蜆兼洗褲</mark>，拿飼料餵<mark>麝香小豬</mark>、天竺鼠、小羊和天鵝，還有滾鐵圈、射竹箭的免費古早童玩區和挖沙區。玩完開 10 分鐘就到梅花湖搭遊湖船，回程去幾米廣場拍全家福。</p>
+
+  <div class="strip">
+    <figure class="polaroid"><img src="img/gx-clam1.jpg" alt="廣興農場天然湧泉摸蜆區"><figcaption>天然湧泉摸蜆兼洗褲</figcaption></figure>
+    <figure class="polaroid"><img src="img/gx-pig.jpg" alt="近距離餵麝香豬"><figcaption>餵麝香小豬吃飯飯</figcaption></figure>
+    <figure class="polaroid"><img src="img/gx-guinea.jpg" alt="天竺鼠餵食區"><figcaption>天竺鼠車車本尊</figcaption></figure>
+    <figure class="polaroid"><img src="img/gx-clam2.jpg" alt="摸蜆區旁的鞦韆"><figcaption>水上鞦韆盪一下</figcaption></figure>
+    <figure class="polaroid"><img src="img/gx-paint.jpg" alt="彩繪小豬撲滿DIY"><figcaption>彩繪小豬撲滿DIY</figcaption></figure>
+    <figure class="polaroid"><img src="img/mh-lake1.jpg" alt="梅花湖湖面與湖心島"><figcaption>梅花湖搭遊湖船</figcaption></figure>
+    <figure class="polaroid"><img src="img/mh-lake2.jpg" alt="從高處俯瞰梅花湖"><figcaption>從上面看真的像梅花</figcaption></figure>
+    <figure class="polaroid"><img src="img/jm-plaza.jpg" alt="幾米主題廣場裝置藝術"><figcaption>幾米廣場拍拍拍</figcaption></figure>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h3>🗺️ 這一天會去哪</h3>
+      <ul>
+        <li>🐷 <b>廣興農場</b>——摸蜆兼洗褲、餵麝香豬和天竺鼠、彩繪小豬撲滿、古早童玩區</li>
+        <li>⛵ <b>梅花湖風景區</b>——搭遊湖船環湖一圈，湖畔散步、吃午餐</li>
+        <li>📖 <b>幾米廣場＋丟丟噹森林</b>——經典繪本場景、星空飛天列車</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>✨ 這條路線的好</h3>
+      <ul>
+        <li>🦪 天然湧泉「摸蜆兼洗褲」，全台少見的古早體驗</li>
+        <li>🐹 小豬、天竺鼠、小羊、天鵝通通可以餵</li>
+        <li>🎯 免費童玩區＋挖沙區，放電滿點</li>
+        <li>⛵ 農場到梅花湖只要 10 分鐘，行程超順</li>
+      </ul>
+      <h3>📌 給爸媽的小提醒</h3>
+      <p class="note">摸蜆採預約制、記得帶換洗衣物（11 月梯次先電話確認）；農場週三公休，出發前以 FB 公告為準。</p>
+    </div>
+  </div>
+
+  <div class="links">
+    <a href="https://www.facebook.com/pigs8888/" target="_blank" rel="noopener">🐷 廣興農場 Facebook</a>
+    <a href="https://travel.dongshan.gov.tw/tourist_spot_view.asp?id=11" target="_blank" rel="noopener">⛵ 梅花湖官方介紹</a>
+    <a href="https://travel.yilan.gov.tw/zh-tw/attraction/232/" target="_blank" rel="noopener">📖 幾米廣場官方介紹</a>
+  </div>
+</section>
+
+<!-- ============ 路線五 ============ -->
+<section class="trip sketch" id="trip5" style="--tc:var(--t5);--tsoft:var(--t5-soft)">
+  <span class="badge-num">5 號路線</span>
+  <h2>🛝 宜蘭放電小旅行｜大碗公溜滑梯・餵小羊</h2>
+  <div class="meta">
+    <span class="chip">📍 宜蘭礁溪・冬山</span>
+    <span class="chip">🚗 車程約 1 小時</span>
+    <span class="chip">🌿 悠閒度 🌿🌿</span>
+    <span class="chip">👶 全年齡都適合</span>
+  </div>
+  <p class="intro">放電景點大集合！先衝龍潭湖<mark>大碗公溜滑梯</mark>咻咻滑個過癮，中午到幾米廣場拍照、火車站旁吃午餐，下午在宜農牧場<mark>抱小羊、喝鮮羊奶</mark>，壓軸是冬山河生態綠舟的大草皮和童話小屋，還能搭電動小船探「神祕河道」，超有亞馬遜探險感！</p>
+
+  <div class="strip">
+    <figure class="polaroid"><img src="img/lt-lake1.jpg" alt="龍潭湖環湖步道與大草皮"><figcaption>龍潭湖畔大草皮</figcaption></figure>
+    <figure class="polaroid"><img src="img/lt-lake2.jpg" alt="龍潭湖風景區全景"><figcaption>大碗公溜滑梯就在這</figcaption></figure>
+    <figure class="polaroid"><img src="img/dd-forest.jpg" alt="丟丟噹森林的星空飛天列車"><figcaption>星空飛天列車 🚂</figcaption></figure>
+    <figure class="polaroid"><img src="img/yn-goat1.jpg" alt="小朋友在宜農牧場餵小羊"><figcaption>宜農牧場餵小羊</figcaption></figure>
+    <figure class="polaroid"><img src="img/yn-goat2.jpg" alt="懷裡抱著小羊"><figcaption>可以抱抱小羊喔</figcaption></figure>
+    <figure class="polaroid"><img src="img/ds-ecoark.jpg" alt="冬山河生態綠舟大樹公觀景塔內部"><figcaption>生態綠舟童話大樹公</figcaption></figure>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h3>🗺️ 這一天會去哪</h3>
+      <ul>
+        <li>🛝 <b>龍潭湖風景區</b>——大碗公溜滑梯＋環湖步道，免費玩到飽</li>
+        <li>📖 <b>幾米廣場＋丟丟噹森林</b>——拍照打卡，火車站周邊吃平價午餐</li>
+        <li>🐐 <b>宜農牧場</b>——餵小羊、天竺鼠、小豬，喝現擠鮮羊奶</li>
+        <li>🚤 <b>冬山河生態綠舟</b>——大草皮野放、哈比屋建築、搭電動小船探神祕河道</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>✨ 這條路線的好</h3>
+      <ul>
+        <li>🛝 大碗公溜滑梯是宜蘭最紅的免費放電點</li>
+        <li>🐐 牧場門票就含牧草、飼料和鮮羊奶</li>
+        <li>🚤 神祕河道電動小船，像小小亞馬遜探險</li>
+        <li>☔ 雨天備案多：室內羊圈、室內展區都能躲雨</li>
+      </ul>
+      <h3>📌 給爸媽的小提醒</h3>
+      <p class="note">玩大碗公溜滑梯記得穿長褲、帶厚紙板或滑草板；生態綠舟開放到 17:00，電動小船要在 16:30 前搭。</p>
+    </div>
+  </div>
+
+  <div class="links">
+    <a href="https://www.facebook.com/elfarm123/" target="_blank" rel="noopener">🐐 宜農牧場 Facebook</a>
+    <a href="https://travel.dongshan.gov.tw/tourist_spot_view.asp?id=36" target="_blank" rel="noopener">🚤 生態綠舟官方介紹</a>
+    <a href="https://www.welcometw.com/%E9%BE%8D%E6%BD%AD%E6%B9%96%E9%A2%A8%E6%99%AF%E5%8D%80/" target="_blank" rel="noopener">🛝 龍潭湖介紹</a>
+  </div>
+</section>
+
+<!-- ============ 比較表 ============ -->
+<section class="sketch" id="compare">
+  <h2>📋 五條路線比一比</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th></th><th>🌳 幸福20號農場</th><th>🌊 新豐海線慢遊</th><th>🪂 露境東岳</th><th>🐷 廣興農場摸蜆趣</th><th>🛝 宜蘭放電小旅行</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>地點</th><td class="c1">宜蘭冬山</td><td class="c2">新竹新豐</td><td class="c3">宜蘭南澳</td><td class="c4">宜蘭冬山</td><td class="c5">宜蘭礁溪・冬山</td></tr>
+        <tr><th>車程</th><td class="c1">約 1.5 小時（雪隧）</td><td class="c2">約 75 分鐘（西濱）</td><td class="c3">約 2 小時（雪隧＋蘇花改）</td><td class="c4">約 1.5 小時</td><td class="c5">約 1 小時</td></tr>
+        <tr><th>主打活動</th><td class="c1">空中樹梢闖關、披薩DIY</td><td class="c2">農場放電、紅樹林生態、沙灘夕陽</td><td class="c3">泰山滑索、烤肉、湧泉戲水</td><td class="c4">摸蜆兼洗褲、餵小豬、梅花湖遊湖船</td><td class="c5">大碗公溜滑梯、餵小羊、電動小船</td></tr>
+        <tr><th>刺激度</th><td class="c1">⚡⚡</td><td class="c2">⚡</td><td class="c3">⚡⚡⚡</td><td class="c4">⚡</td><td class="c5">⚡</td></tr>
+        <tr><th>悠閒度</th><td class="c1">🌿🌿</td><td class="c2">🌿🌿🌿</td><td class="c3">🌿🌿</td><td class="c4">🌿🌿🌿</td><td class="c5">🌿🌿</td></tr>
+        <tr><th>適合年齡</th><td class="c1">每人玩4關（7選4），未滿12歲家長陪同</td><td class="c2">全年齡，嬰兒車也OK</td><td class="c3">滑索 5 歲以上，其他全年齡</td><td class="c4">全年齡（摸蜆 3 歲以上）</td><td class="c5">全年齡</td></tr>
+        <tr><th>最大亮點</th><td class="c1">像小泰山在樹上闖關</td><td class="c2">一路玩到天黑看夕陽</td><td class="c3">北台灣最長滑索飛越山谷</td><td class="c4">天然湧泉摸蜆兼洗褲</td><td class="c5">免費景點最多、放電最徹底</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 投票 ============ -->
+<section class="sketch" id="vote">
+  <h2>🗳️ 投票時間到！</h2>
+  <p class="sub">你最想去哪裡玩？每個人都有一票，投完換下一位喔！</p>
+
+  <div id="step1">
+    <span class="step-label">第 1 步・你是誰？</span>
+    <div class="role-btns">
+      <button class="role-btn" id="role-kid" aria-pressed="false"><span class="big">🧒</span>我是小孩</button>
+      <button class="role-btn" id="role-parent" aria-pressed="false"><span class="big">👨‍👩‍👧</span>我是家長</button>
+    </div>
+  </div>
+
+  <div id="step2" hidden>
+    <span class="step-label">第 2 步・點一下你最想去的地方！</span>
+    <div class="vote-cards">
+      <button class="vote-card" data-trip="t1" style="--tsoft:var(--t1-soft)">
+        <img src="img/hf-zipline.jpg" alt="">
+        <span class="vc-name">🌳 幸福20號農場</span>
+        <span class="vc-sub">樹上闖關＋披薩DIY</span>
+      </button>
+      <button class="vote-card" data-trip="t2" style="--tsoft:var(--t2-soft)">
+        <img src="img/xf-beach-sunset.jpg" alt="">
+        <span class="vc-name">🌊 新豐海線慢遊</span>
+        <span class="vc-sub">農場・紅樹林・沙灘夕陽</span>
+      </button>
+      <button class="vote-card" data-trip="t3" style="--tsoft:var(--t3-soft)">
+        <img src="img/lj-zipline.jpg" alt="">
+        <span class="vc-name">🪂 露境東岳</span>
+        <span class="vc-sub">滑索＋烤肉大冒險</span>
+      </button>
+      <button class="vote-card" data-trip="t4" style="--tsoft:var(--t4-soft)">
+        <img src="img/gx-pig.jpg" alt="">
+        <span class="vc-name">🐷 廣興農場摸蜆趣</span>
+        <span class="vc-sub">摸蜆・餵小豬・梅花湖</span>
+      </button>
+      <button class="vote-card" data-trip="t5" style="--tsoft:var(--t5-soft)">
+        <img src="img/yn-goat1.jpg" alt="">
+        <span class="vc-name">🛝 宜蘭放電小旅行</span>
+        <span class="vc-sub">大碗公溜滑梯＋餵小羊</span>
+      </button>
+    </div>
+  </div>
+
+  <p id="vote-status"></p>
+
+  <div id="results">
+    <h3>📊 目前開票結果</h3>
+    <div id="results-body" data-dyn></div>
+    <p class="legend"><span class="dot k"></span> 小孩的票　<span class="dot p"></span> 家長的票</p>
+  </div>
+</section>
+
+<footer>
+  <p class="verse">「神叫孤獨的有家。」<small>—— 詩篇 68:6</small></p>
+  <p class="credits">
+    本頁僅供仁親陪讀班內部親子活動票選使用。照片出處：
+    幸福20號農場——<a href="https://izzychou.com/20happy/" target="_blank" rel="noopener">Miss Mama（izzychou.com）</a>；
+    新豐農場——<a href="https://gototravel.tw/xinfeng-farm/" target="_blank" rel="noopener">來一球叭噗</a>、
+    紅樹林——<a href="https://fullfenblog.tw/hc-mangrove-forest/" target="_blank" rel="noopener">滿分的旅遊札記</a>、
+    沙灘——<a href="https://janice.life/xinfeng/" target="_blank" rel="noopener">潔妮食旅生活</a>、
+    親水階梯——<a href="https://travel.ettoday.net/article/3100228.htm" target="_blank" rel="noopener">ETtoday／新竹縣政府</a>；
+    露境東岳——<a href="https://kafu.tw/camping085/" target="_blank" rel="noopener">卡夫卡愛旅行</a>、
+    <a href="https://www.funtime.com.tw/blog/teresa/" target="_blank" rel="noopener">FunTime</a>、
+    <a href="https://www.ezoutdoor.com.tw/activity/142" target="_blank" rel="noopener">ezoutdoor</a>；
+    廣興農場——<a href="https://bigmouthblog.tw/blog/post/220601" target="_blank" rel="noopener">大口老師的走跳學堂</a>、<a href="https://kafu.tw/guang-xing-farm/" target="_blank" rel="noopener">卡夫卡愛旅行</a>；
+    宜農牧場——<a href="https://ezgo.ardswc.gov.tw/zh-tw/spot/2234/" target="_blank" rel="noopener">農業易遊網</a>；
+    梅花湖、幾米廣場、龍潭湖、丟丟噹森林、生態綠舟——Wikimedia Commons。
+  </p>
+</footer>
+
+</div><!-- /wrap -->
+
+<script type="application/json" id="vote-store" data-keep>{"votes":[]}</script>
+<script data-keep>
+(function(){
+"use strict";
+
+/* ---- 1. 開頁時先擷取乾淨的頁面範本（供投票後重新發佈） ---- */
+var TEMPLATE = null;
+try{
+  var pdoc = new DOMParser().parseFromString(document.documentElement.outerHTML, "text/html");
+  pdoc.querySelectorAll("script:not([data-keep])").forEach(function(e){ e.remove(); });
+  pdoc.querySelectorAll("[data-dyn]").forEach(function(e){ e.innerHTML = ""; });
+  TEMPLATE = "<!doctype html>\n" + pdoc.documentElement.outerHTML;
+}catch(e){ TEMPLATE = null; }
+
+/* ---- 2. 票數資料 ---- */
+var TRIPS = {
+  t1:{ name:"🌳 幸福20號農場" },
+  t2:{ name:"🌊 新豐海線慢遊" },
+  t3:{ name:"🪂 露境東岳" },
+  t4:{ name:"🐷 廣興農場摸蜆趣" },
+  t5:{ name:"🛝 宜蘭放電小旅行" }
+};
+var TRIP_IDS = ["t1","t2","t3","t4","t5"];
+
+/* ---- 手機直接投票模式（部署在 GitHub Pages 時啟用，票數存共用計票服務） ---- */
+var USE_API = /github\.io$/.test(location.hostname);
+var API_BASE = "https://abacus.jasoncameron.dev";
+var API_NS = "renqin-1107-vote-2026";
+var apiCounts = null;
+function fetchCount(key){
+  return fetch(API_BASE + "/get/" + API_NS + "/" + key)
+    .then(function(r){
+      if(r.status === 404) return {value: 0};
+      if(!r.ok) throw new Error("bad status");
+      return r.json();
+    })
+    .then(function(d){ return d.value || 0; })
+    .catch(function(){ return null; });
+}
+function fetchResults(){
+  var keys = [];
+  TRIP_IDS.forEach(function(t){ keys.push(t + "-kid", t + "-parent"); });
+  return Promise.all(keys.map(fetchCount)).then(function(vals){
+    var counts = {}, anyFail = false;
+    TRIP_IDS.forEach(function(t, i){
+      var k = vals[i * 2], p = vals[i * 2 + 1];
+      if(k === null || p === null) anyFail = true;
+      counts[t] = { k: k || 0, p: p || 0 };
+    });
+    if(!anyFail || apiCounts === null) apiCounts = counts;
+    renderResults();
+  });
+}
+var store = { votes: [] };
+try{
+  var parsed = JSON.parse(document.getElementById("vote-store").textContent);
+  if(parsed && Array.isArray(parsed.votes)) store = parsed;
+}catch(e){}
+var localVotes = [];
+try{
+  var lv = JSON.parse(localStorage.getItem("renqin-trip-votes") || "[]");
+  if(Array.isArray(lv)) localVotes = lv;
+}catch(e){}
+
+var artifactNS = null;
+(async function(){
+  try{
+    if(window.claude && window.claude.use){
+      artifactNS = await window.claude.use("artifact");
+    }
+  }catch(e){ artifactNS = null; }
+})();
+
+/* ---- 3. 開票結果 ---- */
+function allVotes(){ return store.votes.concat(localVotes); }
+
+function renderResults(){
+  var body = document.getElementById("results-body");
+  if(!body) return;
+  var counts;
+  if(USE_API){
+    counts = apiCounts || {};
+    TRIP_IDS.forEach(function(t){ if(!counts[t]) counts[t] = {k:0,p:0}; });
+  }else{
+    counts = {};
+    TRIP_IDS.forEach(function(t){ counts[t] = {k:0,p:0}; });
+    allVotes().forEach(function(v){
+      if(!counts[v.t]) return;
+      if(v.r === "kid") counts[v.t].k++; else counts[v.t].p++;
+    });
+  }
+  var totals = TRIP_IDS.map(function(t){ return counts[t].k + counts[t].p; });
+  var max = Math.max.apply(null, totals);
+  if(max === 0){
+    body.innerHTML = '<p class="empty-res">還沒有人投票——快來當第一個！👆</p>';
+    return;
+  }
+  var html = "";
+  TRIP_IDS.forEach(function(t){
+    var c = counts[t], total = c.k + c.p;
+    var kw = (c.k / max * 100).toFixed(1);
+    var pw = (c.p / max * 100).toFixed(1);
+    html += '<div class="res-row">'
+      + '<span class="res-count">🧒 ' + c.k + ' 票・👨‍👩‍👧 ' + c.p + ' 票（共 ' + total + ' 票）</span>'
+      + '<span class="res-name">' + TRIPS[t].name + '</span>'
+      + '<div class="bar"><span class="seg k" style="width:' + kw + '%"></span>'
+      + '<span class="seg p" style="width:' + pw + '%"></span></div>'
+      + '</div>';
+  });
+  body.innerHTML = html;
+}
+
+/* ---- 4. 投票流程 ---- */
+var pickedRole = null;
+var busy = false;
+
+function setStatus(msg){
+  var el = document.getElementById("vote-status");
+  if(el) el.textContent = msg || "";
+}
+
+function pickRole(role){
+  pickedRole = role;
+  document.getElementById("role-kid").setAttribute("aria-pressed", role === "kid" ? "true" : "false");
+  document.getElementById("role-parent").setAttribute("aria-pressed", role === "parent" ? "true" : "false");
+  document.getElementById("step2").hidden = false;
+  setStatus("");
+}
+
+function buildDoc(state){
+  var i = TEMPLATE.indexOf('id="vote-store"');
+  var open = TEMPLATE.indexOf(">", i) + 1;
+  var close = TEMPLATE.indexOf("</" + "script>", open);
+  var json = JSON.stringify(state).replace(/</g, "\\u003c");
+  return TEMPLATE.slice(0, open) + json + TEMPLATE.slice(close);
+}
+
+function showThanks(tripId, sharedNote){
+  var box = document.getElementById("thanks");
+  document.getElementById("thanks-trip").textContent = "你投給了 " + TRIPS[tripId].name;
+  document.getElementById("thanks-note").textContent = sharedNote;
+  box.hidden = false;
+}
+
+function resetToStep1(){
+  pickedRole = null;
+  document.getElementById("role-kid").setAttribute("aria-pressed", "false");
+  document.getElementById("role-parent").setAttribute("aria-pressed", "false");
+  document.getElementById("step2").hidden = true;
+  document.getElementById("thanks").hidden = true;
+  var vs = document.getElementById("vote");
+  if(vs && vs.scrollIntoView) vs.scrollIntoView({ block: "start" });
+}
+
+async function castVote(tripId){
+  if(busy) return;
+  if(!pickedRole){ setStatus("先告訴我們你是小孩還是家長喔！👆"); return; }
+  busy = true;
+  setStatus("🖍️ 記票中…");
+  var vote = { r: pickedRole, t: tripId, at: new Date().toISOString() };
+  var published = false;
+
+  if(USE_API){
+    try{
+      var key = tripId + "-" + (pickedRole === "kid" ? "kid" : "parent");
+      var resp = await fetch(API_BASE + "/hit/" + API_NS + "/" + key);
+      if(!resp.ok) throw new Error("bad status");
+      await fetchResults();
+      showThanks(tripId, "投票成功，大家都看得到囉 🎉");
+      setStatus("");
+    }catch(err){
+      setStatus("😿 連不上計票服務，請檢查網路後再按一次");
+    }
+    busy = false;
+    return;
+  }
+
+  if(artifactNS && TEMPLATE){
+    var newState = { votes: store.votes.concat(localVotes, [vote]) };
+    try{
+      try{ sessionStorage.setItem("renqin-just-voted", TRIPS[tripId].name); }catch(e){}
+      try{ localStorage.setItem("renqin-trip-votes", "[]"); }catch(e){}
+      await artifactNS.publish(buildDoc(newState));
+      published = true; /* 發佈成功後頁面會自動載入新版本 */
+    }catch(err){
+      try{ sessionStorage.removeItem("renqin-just-voted"); }catch(e){}
+      try{ localStorage.setItem("renqin-trip-votes", JSON.stringify(localVotes)); }catch(e){}
+      published = false;
+    }
+  }
+
+  if(!published){
+    localVotes.push(vote);
+    try{ localStorage.setItem("renqin-trip-votes", JSON.stringify(localVotes)); }catch(e){}
+    renderResults();
+    showThanks(tripId, "這一票已記在這台裝置上 📱");
+  }else{
+    showThanks(tripId, "投票成功，大家都看得到囉 🎉");
+  }
+  setStatus("");
+  busy = false;
+}
+
+/* ---- 5. 綁定事件 ---- */
+document.getElementById("role-kid").addEventListener("click", function(){ pickRole("kid"); });
+document.getElementById("role-parent").addEventListener("click", function(){ pickRole("parent"); });
+document.querySelectorAll(".vote-card").forEach(function(btn){
+  btn.addEventListener("click", function(){ castVote(btn.getAttribute("data-trip")); });
+});
+document.getElementById("next-voter").addEventListener("click", resetToStep1);
+
+/* ---- 6. 開頁：畫結果＋投票成功提示 ---- */
+renderResults();
+if(USE_API){
+  fetchResults();
+  setInterval(fetchResults, 20000);
+}
+try{
+  var just = sessionStorage.getItem("renqin-just-voted");
+  if(just){
+    sessionStorage.removeItem("renqin-just-voted");
+    var toast = document.getElementById("toast");
+    toast.textContent = "🎉 投票成功！（" + just + "）";
+    toast.hidden = false;
+    setTimeout(function(){ toast.hidden = true; }, 3500);
+  }
+}catch(e){}
+})();
+</script>
+
+<div id="thanks" class="overlay" hidden>
+  <div class="card">
+    <div class="party">🎉</div>
+    <p><b style="font-size:1.3rem" class="wenkai">投好了！</b></p>
+    <p id="thanks-trip"></p>
+    <p id="thanks-note" style="font-size:.9rem;color:var(--muted)"></p>
+    <button id="next-voter">下一位投票 ▶</button>
+  </div>
+</div>
+<div id="toast" hidden></div>
