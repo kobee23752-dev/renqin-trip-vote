@@ -709,6 +709,17 @@ footer{margin:52px auto 0;text-align:center;max-width:760px}
 
 </div><!-- /wrap -->
 
+<div id="thanks" class="overlay" hidden>
+  <div class="card">
+    <div class="party">🎉</div>
+    <p><b style="font-size:1.3rem" class="wenkai">投好了！</b></p>
+    <p id="thanks-trip"></p>
+    <p id="thanks-note" style="font-size:.9rem;color:var(--muted)"></p>
+    <button id="next-voter">下一位投票 ▶</button>
+  </div>
+</div>
+<div id="toast" hidden></div>
+
 <script type="application/json" id="vote-store" data-keep>{"votes":[]}</script>
 <script data-keep>
 (function(){
@@ -938,14 +949,3 @@ try{
 }catch(e){}
 })();
 </script>
-
-<div id="thanks" class="overlay" hidden>
-  <div class="card">
-    <div class="party">🎉</div>
-    <p><b style="font-size:1.3rem" class="wenkai">投好了！</b></p>
-    <p id="thanks-trip"></p>
-    <p id="thanks-note" style="font-size:.9rem;color:var(--muted)"></p>
-    <button id="next-voter">下一位投票 ▶</button>
-  </div>
-</div>
-<div id="toast" hidden></div>
