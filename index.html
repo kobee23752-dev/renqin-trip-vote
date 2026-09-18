@@ -34,6 +34,7 @@
     --t4:#E58BB8; --t4-soft:#45243A;
     --t5:#AC93D8; --t5-soft:#332A49;
     --shadow:0 3px 0 rgba(0,0,0,.45);
+    --logo-filter:invert(.92);
   }
 }
 :root[data-theme="dark"]{
@@ -51,6 +52,7 @@
   --t4:#E58BB8; --t4-soft:#45243A;
   --t5:#AC93D8; --t5-soft:#332A49;
   --shadow:0 3px 0 rgba(0,0,0,.45);
+  --logo-filter:invert(.92);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -77,20 +79,10 @@ a{color:var(--ink)}
 }
 
 /* ---------- 頁首 ---------- */
-header{padding:34px 0 8px;text-align:center}
-.logo-paper{
-  display:inline-block;background:#FFFFFF;border:2px solid var(--line);
-  border-radius:8px 3px 10px 4px/4px 10px 3px 8px;
-  padding:10px 14px;box-shadow:var(--shadow);
-  transform:rotate(-2deg);position:relative;margin-bottom:10px;
-}
-.logo-paper::before,.logo-paper::after{
-  content:"";position:absolute;top:-10px;width:56px;height:20px;
-  background:var(--hl);opacity:.85;border:1.5px solid var(--line);transform:rotate(-4deg);
-}
-.logo-paper::before{left:-18px}
-.logo-paper::after{right:-18px;transform:rotate(5deg)}
-.logo-paper img{width:190px;max-width:60vw;height:auto;display:block}
+header{padding:14px 0 8px;text-align:center}
+.hero-row{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
+.logo-img{width:150px;max-width:36vw;height:auto;transform:rotate(-2deg);filter:var(--logo-filter,none)}
+.hero-text{display:flex;flex-direction:column;align-items:center;gap:2px}
 .org{
   display:inline-block;font-family:'LXGW WenKai TC',serif;font-weight:700;
   font-size:1.05rem;letter-spacing:.35em;padding-left:.35em;
@@ -98,9 +90,9 @@ header{padding:34px 0 8px;text-align:center}
   padding:2px 14px 2px 18px;transform:rotate(-1.5deg);background:var(--paper);
 }
 h1{
-  font-size:clamp(2.1rem,7vw,3.4rem);
+  font-size:clamp(2rem,6vw,3rem);
   font-weight:700;letter-spacing:.06em;
-  margin:14px 0 4px;line-height:1.25;
+  margin:10px 0 4px;line-height:1.25;
   color:var(--ink);
   text-shadow:3px 3px 0 var(--bg),4px 4px 0 var(--line);
 }
@@ -296,11 +288,14 @@ footer{margin:52px auto 0;text-align:center;max-width:760px}
 <div class="wrap">
 
 <header>
-  <div class="logo-paper"><img src="img/logo.png" alt="仁親陪讀班的手繪 Rent Ching logo：方塊字和微笑的小人"></div>
-  <br>
-  <span class="org">仁親陪讀班</span>
-  <h1>親子一日遊大票選</h1>
-  <span class="date-badge">2026.11.7（六）・新北投出發 🚌</span>
+  <div class="hero-row">
+    <img class="logo-img" src="img/logo-t.png" alt="仁親陪讀班的手繪 Rent Ching logo：方塊字和微笑的小人">
+    <div class="hero-text">
+      <span class="org">仁親陪讀班</span>
+      <h1>親子一日遊大票選</h1>
+      <span class="date-badge">2026.11.7（六）・新北投出發 🚌</span>
+    </div>
+  </div>
   <p class="tagline">五條路線都超好玩，要去哪裡玩？<b>小孩、家長，一人一票自己決定！</b></p>
   <nav>
     <a href="#trip1">🌳 幸福20號農場</a>
