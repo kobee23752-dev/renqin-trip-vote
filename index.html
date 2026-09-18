@@ -175,6 +175,16 @@ td.c1{background:var(--t1-soft)}td.c2{background:var(--t2-soft)}td.c3{background
 .role-btn .big{display:block;font-size:2.4rem;line-height:1.2}
 .role-btn:hover{background:var(--hl)}
 .role-btn[aria-pressed="true"]{background:var(--hl);transform:scale(1.04)}
+.name-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:660px;margin:0 auto}
+.name-btn{
+  font-family:'LXGW WenKai TC',serif;font-weight:700;font-size:1.05rem;color:var(--ink);
+  background:var(--paper);border:2px solid var(--line);
+  border-radius:120px 14px 120px 14px/14px 120px 14px 120px;
+  padding:6px 18px;cursor:pointer;box-shadow:var(--shadow);
+}
+.name-btn:hover{background:var(--hl)}
+.name-btn[aria-pressed="true"]{background:var(--hl);transform:scale(1.08)}
+.vote-step{margin-top:22px}
 .step-label{
   display:inline-block;font-family:'LXGW WenKai TC',serif;font-weight:700;
   background:var(--hl);border:2px solid var(--line);
@@ -601,16 +611,29 @@ footer{margin:52px auto 0;text-align:center;max-width:760px}
   <h2>🗳️ 投票時間到！</h2>
   <p class="sub">你最想去哪裡玩？每個人都有一票，投完換下一位喔！</p>
 
-  <div id="step1">
-    <span class="step-label">第 1 步・你是誰？</span>
+  <div id="step0" class="vote-step">
+    <span class="step-label">第 1 步・你的名字？</span>
+    <div class="name-grid" id="name-grid" data-dyn></div>
+  </div>
+
+  <div id="step1" class="vote-step" hidden>
+    <span class="step-label">第 2 步・你是誰？</span>
     <div class="role-btns">
-      <button class="role-btn" id="role-kid" aria-pressed="false"><span class="big">🧒</span>我是小孩</button>
+      <button class="role-btn" id="role-kid" aria-pressed="false"><span class="big">🧒</span>小孩本人</button>
       <button class="role-btn" id="role-parent" aria-pressed="false"><span class="big">👨‍👩‍👧</span>我是家長</button>
     </div>
   </div>
 
-  <div id="step2" hidden>
-    <span class="step-label">第 2 步・點一下你最想去的地方！</span>
+  <div id="step-attend" class="vote-step" hidden>
+    <span class="step-label">第 3 步・11/7 那天能出席嗎？</span>
+    <div class="role-btns">
+      <button class="role-btn" id="attend-yes" aria-pressed="false"><span class="big">🙋</span>會出席</button>
+      <button class="role-btn" id="attend-no" aria-pressed="false"><span class="big">😢</span>不能出席</button>
+    </div>
+  </div>
+
+  <div id="step2" class="vote-step" hidden>
+    <span class="step-label">第 4 步・點一下你最想去的地方！</span>
     <div class="vote-cards">
       <button class="vote-card" data-trip="t1" style="--tsoft:var(--t1-soft)">
         <img src="img/hf-zipline.jpg" alt="">
@@ -705,6 +728,31 @@ var TRIPS = {
 };
 var TRIP_IDS = ["t1","t2","t3","t4","t5"];
 
+/* ---- 記名投票：寫進 Google 表單 ---- */
+var NAMES = ["羽彤＆羽妡","文星","家富","敏菁","喬桐","恩典","家銘","瑋民","嘉峰＆浩明","睿旭","一鴻","閎凱","品傑","可比"];
+var GFORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeJg-uG6CS3vkvlUg4xZ07HHt4pPr7qds1aF17nTm_ajNIcgA/formResponse";
+var GFORM_ENTRIES = { name:"entry.1838193309", role:"entry.1450422483", attend:"entry.1556993217", trip:"entry.1073762277" };
+var GFORM_TRIP_LABELS = {
+  t1:"1號 幸福20號農場＋牛舌餅DIY",
+  t2:"2號 新豐海線慢遊",
+  t3:"3號 露境東岳滑索・烤肉・粉鳥林・珍奶DIY",
+  t4:"4號 廣興農場・梅花湖・幾米廣場",
+  t5:"5號 龍潭湖大碗公・宜農牧場・生態綠舟"
+};
+function submitToGForm(name, role, attend, tripId){
+  var params = new URLSearchParams();
+  params.append(GFORM_ENTRIES.name, name);
+  params.append(GFORM_ENTRIES.role, role === "kid" ? "小孩本人" : "家長");
+  params.append(GFORM_ENTRIES.attend, attend ? "是" : "否");
+  params.append(GFORM_ENTRIES.trip, GFORM_TRIP_LABELS[tripId]);
+  return fetch(GFORM_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params.toString()
+  }).catch(function(){ /* 表單送出為盡力而為，計票以下方為準 */ });
+}
+
 /* ---- 手機直接投票模式（部署在 GitHub Pages 時啟用，票數存共用計票服務） ---- */
 var USE_API = /github\.io$/.test(location.hostname);
 var API_BASE = "https://abacus.jasoncameron.dev";
@@ -794,7 +842,9 @@ function renderResults(){
 }
 
 /* ---- 4. 投票流程 ---- */
+var pickedName = null;
 var pickedRole = null;
+var pickedAttend = null;
 var busy = false;
 
 function setStatus(msg){
@@ -802,10 +852,40 @@ function setStatus(msg){
   if(el) el.textContent = msg || "";
 }
 
+function renderNameGrid(){
+  var grid = document.getElementById("name-grid");
+  if(!grid) return;
+  NAMES.forEach(function(n){
+    var b = document.createElement("button");
+    b.className = "name-btn";
+    b.type = "button";
+    b.textContent = n;
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", function(){ pickName(n, b); });
+    grid.appendChild(b);
+  });
+}
+
+function pickName(name, btn){
+  pickedName = name;
+  document.querySelectorAll(".name-btn").forEach(function(b){ b.setAttribute("aria-pressed", "false"); });
+  btn.setAttribute("aria-pressed", "true");
+  document.getElementById("step1").hidden = false;
+  setStatus("");
+}
+
 function pickRole(role){
   pickedRole = role;
   document.getElementById("role-kid").setAttribute("aria-pressed", role === "kid" ? "true" : "false");
   document.getElementById("role-parent").setAttribute("aria-pressed", role === "parent" ? "true" : "false");
+  document.getElementById("step-attend").hidden = false;
+  setStatus("");
+}
+
+function pickAttend(yes){
+  pickedAttend = yes;
+  document.getElementById("attend-yes").setAttribute("aria-pressed", yes ? "true" : "false");
+  document.getElementById("attend-no").setAttribute("aria-pressed", yes ? "false" : "true");
   document.getElementById("step2").hidden = false;
   setStatus("");
 }
@@ -826,9 +906,15 @@ function showThanks(tripId, sharedNote){
 }
 
 function resetToStep1(){
+  pickedName = null;
   pickedRole = null;
-  document.getElementById("role-kid").setAttribute("aria-pressed", "false");
-  document.getElementById("role-parent").setAttribute("aria-pressed", "false");
+  pickedAttend = null;
+  document.querySelectorAll(".name-btn").forEach(function(b){ b.setAttribute("aria-pressed", "false"); });
+  ["role-kid","role-parent","attend-yes","attend-no"].forEach(function(id){
+    document.getElementById(id).setAttribute("aria-pressed", "false");
+  });
+  document.getElementById("step1").hidden = true;
+  document.getElementById("step-attend").hidden = true;
   document.getElementById("step2").hidden = true;
   document.getElementById("thanks").hidden = true;
   var vs = document.getElementById("vote");
@@ -837,11 +923,16 @@ function resetToStep1(){
 
 async function castVote(tripId){
   if(busy) return;
+  if(!pickedName){ setStatus("先選你的名字喔！👆"); return; }
   if(!pickedRole){ setStatus("先告訴我們你是小孩還是家長喔！👆"); return; }
+  if(pickedAttend === null){ setStatus("先選那天能不能出席喔！👆"); return; }
   busy = true;
   setStatus("🖍️ 記票中…");
-  var vote = { r: pickedRole, t: tripId, at: new Date().toISOString() };
+  var vote = { name: pickedName, r: pickedRole, attend: pickedAttend, t: tripId, at: new Date().toISOString() };
   var published = false;
+
+  /* 記名資料寫進 Google 表單（兩種模式都送） */
+  try{ submitToGForm(pickedName, pickedRole, pickedAttend, tripId); }catch(e){}
 
   if(USE_API){
     try{
@@ -849,7 +940,7 @@ async function castVote(tripId){
       var resp = await fetch(API_BASE + "/hit/" + API_NS + "/" + key);
       if(!resp.ok) throw new Error("bad status");
       await fetchResults();
-      showThanks(tripId, "投票成功，大家都看得到囉 🎉");
+      showThanks(tripId, pickedName + " 投票成功，大家都看得到囉 🎉");
       setStatus("");
     }catch(err){
       setStatus("😿 連不上計票服務，請檢查網路後再按一次");
@@ -885,8 +976,11 @@ async function castVote(tripId){
 }
 
 /* ---- 5. 綁定事件 ---- */
+renderNameGrid();
 document.getElementById("role-kid").addEventListener("click", function(){ pickRole("kid"); });
 document.getElementById("role-parent").addEventListener("click", function(){ pickRole("parent"); });
+document.getElementById("attend-yes").addEventListener("click", function(){ pickAttend(true); });
+document.getElementById("attend-no").addEventListener("click", function(){ pickAttend(false); });
 document.querySelectorAll(".vote-card").forEach(function(btn){
   btn.addEventListener("click", function(){ castVote(btn.getAttribute("data-trip")); });
 });
